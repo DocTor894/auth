@@ -1,51 +1,45 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-                v-model="userInfo.username"
-                :counter="10"
-                :rules="loginRules"
-                label="Login"
-                required />
+  <v-layout column justify-center align-center>
+    <v-flex xs12 sm8>
+      <v-card min-width="400">
+        <v-card-title><h1>Login</h1></v-card-title>
+        <v-card-text>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-text-field
+              v-model="userInfo.username"
+              :counter="20"
+              :rules="loginRules"
+              label="Login"
+              required/>
 
-    <v-text-field
-                v-model="userInfo.password"
-                :rules="passRules"
-                label="Password"
-                required />
+            <v-text-field
+              v-model="userInfo.password"
+              :rules="passRules"
+              label="Password"
+              required/>
 
-<!--    <v-text-field-->
-<!--                v-model="userInfo.name"-->
-<!--                :counter="10"-->
-<!--                :rules="nameRules"-->
-<!--                label="Name"-->
-<!--                required-->
-<!--                v-if="reg"/>-->
-
-<!--    <v-text-field-->
-<!--                v-model="userInfo.email"-->
-<!--                :rules="emailRules"-->
-<!--                label="E-mail"-->
-<!--                required-->
-<!--                v-if="reg"/>-->
-
-    <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mr-4"
-                @click="submitForm(userInfo)">
-      {{ buttonText }}
-    </v-btn>
-  </v-form>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4"
+              @click="submitForm(userInfo)">
+              {{ buttonText }}
+            </v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
   export default {
     props: {
       submitForm: {
-        type: Function,
+        type: Function
       },
       buttonText: {
-        type: String,
+        type: String
       },
       reg: {
         default: false
@@ -55,31 +49,18 @@
       return {
         valid: false,
         userInfo: {
-          username: 'hgfhgfh',
-          password: 'fghgh',
-          // name: '',
-          // email: '',
+          username: 'Sara123',
+          password: '123456',
         },
         loginRules: [
           v => !!v || 'Login is required',
-          v => (v && v.length <= 10) || 'Login must be less than 10 characters',
+          v => (v && v.length <= 20) || 'Login must be less than 20 characters'
         ],
         passRules: [
           v => !!v || 'Password is required',
-          v => (v && v.length <= 10) || 'Password must be valid',
-        ],
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-        ],
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+          v => (v && v.length >= 3) || 'Password is small'
         ],
       }
-    },
+    }
   }
 </script>
-
-<style lang="scss" scoped>
-</style>
